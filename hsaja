@@ -1,0 +1,33 @@
+import pygame
+import time
+
+pygame.mixer.init()
+is_within_threshold = False
+
+# Replace this with the actual path to your audio file
+# For Windows:
+# audio_file_path = r"C:\path\to\your\audio\file\alert_sound.wav"
+
+# For Linux/Mac:
+audio_file_path = "/path/to/your/audio/file/alert_sound.wav"
+
+# Load the audio file
+pygame.mixer.music.load(audio_file_path)
+
+def update_proximity_flag(offset_x, offset_y, threshold_distance):
+    global is_within_threshold
+    is_within_threshold = abs(offset_x) <= threshold_distance and abs(offset_y) <= threshold_distance
+
+def control_audio_playback(is_within_threshold):
+    if is_within_threshold:
+        pygame.mixer.music.play()  # Play the audio
+        print('Audio Playing')
+    else:
+        pygame.mixer.music.stop() 
+        print('Audio Stopped')
+
+# Add a short delay before playing the audio
+time.sleep(0.1)
+
+# Call the function to control audio playback
+control_audio_playback(True)  # Simulating object within threshold for testing
